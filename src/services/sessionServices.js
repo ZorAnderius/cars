@@ -51,8 +51,7 @@ export const refreshSession = async (sessionId) => {
     return null;
   }
   
-  // Оновлюємо час закінчення сесії
-  session.expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // +24 години
+  session.expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
   await session.save();
   
   return session;

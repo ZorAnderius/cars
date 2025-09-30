@@ -1,5 +1,4 @@
 import { createCar, getAllCars, getCarById, updateCar, deleteCar } from "../services/carsServices.js";
-import saveToCloudinary from "../utils/cloudinary.js";
 
 export const createCarController = async (req, res, next) => {
   let carData = { ...req.body };
@@ -7,6 +6,7 @@ export const createCarController = async (req, res, next) => {
   // Якщо є завантажене фото, завантажуємо його на Cloudinary
   if (req.file) {
     try {
+      const { default: saveToCloudinary } = await import("../utils/cloudinary.js");
       const photoUrl = await saveToCloudinary(req.file, "cars");
       carData.photo = photoUrl;
     } catch (error) {
@@ -48,6 +48,7 @@ export const updateCarController = async (req, res, next) => {
   // Якщо є завантажене фото, завантажуємо його на Cloudinary
   if (req.file) {
     try {
+      const { default: saveToCloudinary } = await import("../utils/cloudinary.js");
       const photoUrl = await saveToCloudinary(req.file, "cars");
       carData.photo = photoUrl;
     } catch (error) {

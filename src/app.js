@@ -11,6 +11,7 @@ import reviewsRoute from './routes/reviewsRoute.js';
 import servicesRoute from './routes/servicesRoute.js';
 
 const app = express();
+const SECRET = env("SESSION_SECRET");
 
 app.use(morgan('tiny'));
 app.use(cors({
@@ -21,7 +22,7 @@ app.use(cookieParser());
 
 // Session configuration
 app.use(session({
-  secret: env("SESSION_SECRET", "your-secret-key"),
+  secret: SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {

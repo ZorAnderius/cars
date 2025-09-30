@@ -1,28 +1,19 @@
 import cloudinary from 'cloudinary';
 import env from './env.js';
 
-const CLOUDINARY_NAME = env("CLOUDINARY_NAME");
-const CLOUDINARY_API_KEY = env("CLOUDINARY_API_KEY");
-const CLOUDINARY_API_SECRET = env("CLOUDINARY_API_SECRET");
+// Функція для налаштування Cloudinary (викликається тільки при потребі)
+const configureCloudinary = () => {
+    const CLOUDINARY_NAME = env("CLOUDINARY_NAME");
+    const CLOUDINARY_API_KEY = env("CLOUDINARY_API_KEY");
+    const CLOUDINARY_API_SECRET = env("CLOUDINARY_API_SECRET");
 
-/**
- * Configures the Cloudinary SDK with API credentials and settings.
- *
- * This must be called before performing any uploads or other Cloudinary operations.
- *
- * @function
- * @param {Object} config - Cloudinary configuration object.
- * @param {boolean} config.secure - If true, URLs returned will use HTTPS.
- * @param {string} config.cloud_name - Cloudinary cloud name.
- * @param {string} config.api_key - Cloudinary API key.
- * @param {string} config.api_secret - Cloudinary API secret.
- */
-cloudinary.v2.config({
-    secure: true,
-    cloud_name: CLOUDINARY_NAME,
-    api_key: CLOUDINARY_API_KEY,
-    api_secret: CLOUDINARY_API_SECRET
-});
+    cloudinary.v2.config({
+        secure: true,
+        cloud_name: CLOUDINARY_NAME,
+        api_key: CLOUDINARY_API_KEY,
+        api_secret: CLOUDINARY_API_SECRET
+    });
+};
 
 /**
  * Uploads a file to Cloudinary and returns the secure URL.
@@ -43,6 +34,8 @@ cloudinary.v2.config({
  * console.log(url); // https://res.cloudinary.com/yourcloud/image/upload/v123456/cars/car.jpg
  */
 const saveToCloudinary = async (file, folderName = "") => {
+    configureCloudinary();
+    
     return new Promise((resolve, reject) => {
         const uploadOptions = {
             resource_type: "image",

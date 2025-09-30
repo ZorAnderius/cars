@@ -2,7 +2,7 @@
 
 RESTful API for managing cars, reviews, and services with user authentication support.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Project Description](#project-description)
 - [Technologies](#technologies)

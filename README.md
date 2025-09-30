@@ -113,7 +113,7 @@ npm start
 
 The server will be available at `http://localhost:3000`
 
-## 📚 API Documentation
+## API Documentation
 
 ### Base URL
 ```
@@ -265,7 +265,7 @@ Content-Type: application/json
 }
 ```
 
-## 💻 Frontend Integration
+## Frontend Integration
 
 ### JavaScript/React Example
 
@@ -468,7 +468,7 @@ function CarsList() {
 </html>
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 cars/
@@ -539,7 +539,7 @@ The API supports complex car filtering:
 - Automatic session refresh
 - Expired session cleanup
 
-## 🐛 Debugging
+## Debugging
 
 ### Check database connection
 ```bash
@@ -562,10 +562,6 @@ curl http://localhost:3000/cars
 curl "http://localhost:3000/cars?year=2020&model=BMW"
 ```
 
-## 📝 License
+## License
 
 This project is developed for educational purposes.
-
-## 👨‍💻 Author
-
-Developed by a single developer to demonstrate a full-featured REST API with authentication and filtering.

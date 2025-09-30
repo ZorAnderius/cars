@@ -2,8 +2,7 @@ import { createCar, getAllCars, getCarById, updateCar, deleteCar } from "../serv
 
 export const createCarController = async (req, res, next) => {
   let carData = { ...req.body };
-  
-  // Якщо є завантажене фото, завантажуємо його на Cloudinary
+
   if (req.file) {
     try {
       const { default: saveToCloudinary } = await import("../utils/cloudinary.js");
@@ -16,7 +15,7 @@ export const createCarController = async (req, res, next) => {
       });
     }
   }
-  
+
   const newCar = await createCar(carData);
   res.status(201).json({
     message: "Car created successfully",
@@ -25,7 +24,15 @@ export const createCarController = async (req, res, next) => {
 };
 
 export const getAllCarsController = async (req, res, next) => {
-  const cars = await getAllCars();
+  const filters = {
+    year: req.query.year,
+    model: req.query.model,
+    priceMin: req.query.priceMin,
+    priceMax: req.query.priceMax,
+    bodyStyle: req.query.bodyStyle
+  };
+
+  const cars = await getAllCars(filters);
   res.status(200).json({
     message: "Cars retrieved successfully",
     cars
@@ -44,8 +51,7 @@ export const getCarByIdController = async (req, res, next) => {
 export const updateCarController = async (req, res, next) => {
   const { id } = req.params;
   let carData = { ...req.body };
-  
-  // Якщо є завантажене фото, завантажуємо його на Cloudinary
+
   if (req.file) {
     try {
       const { default: saveToCloudinary } = await import("../utils/cloudinary.js");
@@ -58,7 +64,7 @@ export const updateCarController = async (req, res, next) => {
       });
     }
   }
-  
+
   const car = await updateCar(id, carData);
   res.status(200).json({
     message: "Car updated successfully",

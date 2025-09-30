@@ -1,5 +1,6 @@
 import createHttpError from 'http-errors';
 import Car from "../db/models/Cars.js";
+import { Op } from 'sequelize';
 
 export const createCar = async (carData) => {
   try {
@@ -13,9 +14,41 @@ export const createCar = async (carData) => {
   }
 };
 
-export const getAllCars = async () => {
+export const getAllCars = async (filters = {}) => {
   try {
+    const { year, model, priceMin, priceMax, bodyStyle } = filters;
+    
+    // Будую умови для фільтрації
+    const whereConditions = {};
+    
+    // Фільтр за роком
+    if (year) {
+      whereConditions.year = year;
+    }
+    
+    // Фільтр за моделлю (частинний пошук)
+    if (model) {
+      whereConditions.model = {
+        [Op.iLike]: `%${model}%`
+      };
+    }
+    
+    // Фільтр за ціною (діапазон)
+    if (priceMin || priceMax) {
+      whereConditions.price = {};
+      if (priceMin) whereConditions.price[Op.gte] = parseFloat(priceMin);
+      if (priceMax) whereConditions.price[Op.lte] = parseFloat(priceMax);
+    }
+    
+    // Фільтр за типом кузова
+    if (bodyStyle) {
+      whereConditions.bodyStyle = {
+        [Op.iLike]: `%${bodyStyle}%`
+      };
+    }
+    
     const cars = await Car.findAll({
+      where: whereConditions,
       order: [['created_at', 'DESC']]
     });
     return cars;

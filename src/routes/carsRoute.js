@@ -2,6 +2,7 @@ import express from 'express';
 import isEmptyBody from '../middleware/isBody.js';
 import validateBody from '../utils/validBody.js';
 import { carCreateSchemas, carUpdateSchemas } from '../schemas/carSchemas.js';
+import { carFilterSchemas } from '../schemas/carFilterSchemas.js';
 import ctrlWrapper from '../utils/controllerWrapper.js';
 import { authenticate } from '../middleware/auth.js';
 import upload from '../utils/multer.js';
@@ -16,7 +17,7 @@ import { getReviewsByCarIdController } from '../controllers/reviewsControllers.j
 
 const carsRoute = express.Router();
 
-carsRoute.get('/', ctrlWrapper(getAllCarsController));
+carsRoute.get('/', validateBody(carFilterSchemas), ctrlWrapper(getAllCarsController));
 carsRoute.get('/:id', ctrlWrapper(getCarByIdController));
 carsRoute.get('/:id/reviews', ctrlWrapper(getReviewsByCarIdController));
 

@@ -33,3 +33,26 @@ export const register = async (data) => {
     email: newUser.email,
   };
 }
+
+export const login = async (data) => {
+  const { email, password } = data;
+  if (!email || !password) {
+    throw createHttpError(400, 'All fields are required');
+  }
+  
+  const user = await getUser({ email });
+  if (!user) {
+    throw createHttpError(401, 'Invalid email or password');
+  }
+  
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    throw createHttpError(401, 'Invalid email or password');
+  }
+  
+  return {
+    id: user.id,
+    email: user.email,
+    role: user.role
+  };
+}

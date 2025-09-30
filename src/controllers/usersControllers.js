@@ -1,5 +1,5 @@
 import { register, login } from "../services/usersServices.js"
-import { createSession, deleteSession } from "../services/sessionServices.js"
+import { createSession, deleteSession, refreshSession } from "../services/sessionServices.js"
 
 export const registeController = async (req, res, next) => {
   const data = await register(req.body);
@@ -53,6 +53,26 @@ export const getCurrentUserController = async (req, res, next) => {
   }
   
   res.status(200).json({
+    user: {
+      id: req.session.userId,
+      email: req.session.userEmail,
+      role: req.session.userRole
+    }
+  });
+}
+
+export const refreshController = async (req, res, next) => {
+  if (!req.session.sessionId) {
+    return res.status(401).json({ message: "No active session" });
+  }
+  
+  const session = await refreshSession(req.session.sessionId);
+  if (!session) {
+    return res.status(401).json({ message: "Session not found or expired" });
+  }
+  
+  res.status(200).json({
+    message: "Session refreshed successfully",
     user: {
       id: req.session.userId,
       email: req.session.userEmail,

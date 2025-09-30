@@ -45,6 +45,19 @@ export const deleteUserSessions = async (userId) => {
   await Session.destroy({ where: { userId } });
 };
 
+export const refreshSession = async (sessionId) => {
+  const session = await Session.findOne({ where: { sessionId } });
+  if (!session) {
+    return null;
+  }
+  
+  // Оновлюємо час закінчення сесії
+  session.expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // +24 години
+  await session.save();
+  
+  return session;
+};
+
 export const cleanupExpiredSessions = async () => {
   await Session.destroy({
     where: {

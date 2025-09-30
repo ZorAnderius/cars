@@ -1,7 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 
 class Review extends Model {
-  static initModel(sequalize) {
+
+  static initModel(sequelize) {
     return Review.init({
       id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
       content: { type: DataTypes.TEXT, allowNull: false, validate: { min: 2, max: 2000 } },

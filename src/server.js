@@ -1,13 +1,14 @@
 import app from "./app.js";
-import sequelize from "./db/sequalize.js";
+import db from "./db/models/index.js";
 import env from "./utils/env.js";
 
 const PORT = env("PORT", 3000);
 
 const setupServer = async () => {
   try {
-    await sequelize.authenticate();
+    await db.sequelize.authenticate();
     console.log('\x1b[32mDatabase connected successfully!\x1b[0m');
+    // await db.sequelize.sync({force: true});
     app.listen(PORT, () => {
       console.log(`\x1b[35mServer is running on the port ${PORT}\x1b[0m`);
     })

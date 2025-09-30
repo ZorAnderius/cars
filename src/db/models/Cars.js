@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 
 class Car extends Model {
 
-  static initModel(sequalize) {
+  static initModel(sequelize) {
     return Car.init({
       id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
       model: { type: DataTypes.STRING, allowNull: false, validate: { min: 2, max: 30 } },
@@ -14,7 +14,7 @@ class Car extends Model {
       photo: { type: DataTypes.STRING, allowNull: true }
     },
       {
-        sequalize,
+        sequelize,
         modelName: 'Car',
         tableName: 'cars',
         timestamps: true,

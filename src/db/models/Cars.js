@@ -5,12 +5,12 @@ class Car extends Model {
   static initModel(sequelize) {
     return Car.init({
       id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
-      model: { type: DataTypes.STRING, allowNull: false, validate: { min: 2, max: 30 } },
-      year: { type: DataTypes.INTEGER, allowNull: false, validate: { min: 1900, max: 2050 } },
-      price: { type: DataTypes.DOUBLE, allowNull: false, validate: { min: 0.0 } },
-      mileage: { type: DataTypes.DOUBLE, allowNull: false, validate: { min: 0 } },
-      bodyStyle: { type: DataTypes.STRING, allowNull: false, validate: { min: 2, max: 30 } },
-      specs: { type: DataTypes.STRING, allowNull: true, validate: { min: 0, max: 100 } },
+      model: { type: DataTypes.STRING, allowNull: false },
+      year: { type: DataTypes.INTEGER, allowNull: false },
+      price: { type: DataTypes.DOUBLE, allowNull: false },
+      mileage: { type: DataTypes.DOUBLE, allowNull: false },
+      bodyStyle: { type: DataTypes.STRING, allowNull: false },
+      specs: { type: DataTypes.STRING, allowNull: true },
       photo: { type: DataTypes.STRING, allowNull: true }
     },
       {

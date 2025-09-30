@@ -5,9 +5,9 @@ class Review extends Model {
   static initModel(sequelize) {
     return Review.init({
       id: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
-      content: { type: DataTypes.TEXT, allowNull: false, validate: { min: 2, max: 2000 } },
-      rating: { type: DataTypes.INTEGER, allowNull: true, validate: { min: 1, max: 10 } },
-      author: { type: DataTypes.STRING, allowNull: false, validate: { min: 2, max: 30 } },
+      content: { type: DataTypes.TEXT, allowNull: false },
+      rating: { type: DataTypes.INTEGER, allowNull: true},
+      author: { type: DataTypes.STRING, allowNull: false },
       car_id: { type: DataTypes.UUID, allowNull: false }
     },
       {

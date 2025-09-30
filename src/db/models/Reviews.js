@@ -21,7 +21,7 @@ class Review extends Model {
   }
 
   static associate(models) {
-    Review.belongsTo(models.Car, { foreignKey: 'car_id' })
+    Review.belongsTo(models.Car, { foreignKey: 'car_id', as: 'Car' })
   }
 }
 

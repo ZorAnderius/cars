@@ -24,7 +24,7 @@ class Car extends Model {
   }
 
   static associate(models) {
-    Car.hasMany(models.Review, { foreignKey: 'car_id', onDelete: 'CASCADE' });
+    Car.hasMany(models.Review, { foreignKey: 'car_id', as: 'Review', onDelete: 'CASCADE' });
   }
 }
 

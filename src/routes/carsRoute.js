@@ -12,12 +12,13 @@ import {
   updateCarController, 
   deleteCarController 
 } from '../controllers/carsControllers.js';
+import { getReviewsByCarIdController } from '../controllers/reviewsControllers.js';
 
 const carsRoute = express.Router();
 
 carsRoute.get('/', ctrlWrapper(getAllCarsController));
 carsRoute.get('/:id', ctrlWrapper(getCarByIdController));
-
+carsRoute.get('/:id/reviews', ctrlWrapper(getReviewsByCarIdController));
 
 carsRoute.post('/create', authenticate, upload.single('photo'), isEmptyBody, validateBody(carCreateSchemas), ctrlWrapper(createCarController));
 carsRoute.put('/:id/edit', authenticate, upload.single('photo'), isEmptyBody, validateBody(carUpdateSchemas), ctrlWrapper(updateCarController));
